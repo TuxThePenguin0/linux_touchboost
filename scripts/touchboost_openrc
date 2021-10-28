@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+
+# Prefix: PREFIX
+
+DAEMON="PREFIX/bin/touchboost"
+PIDFILE="/run/touchboost.pid"
+
+start() {
+	ebegin "Starting touchboost"
+
+	start-stop-daemon --start \
+		--pidfile ${PIDFILE} \
+		--exec ${DAEMON} \
+		--background \
+                --make-pidfile \
+		-- \
+		`PREFIX/bin/touchboost_detect`
+
+	eend ${?}
+}
+
+stop() {
+	ebegin "Stopping touchboost"
+
+	start-stop-daemon --stop --quiet -p "${PIDFILE}"
+
+	eend ${?}
+}
