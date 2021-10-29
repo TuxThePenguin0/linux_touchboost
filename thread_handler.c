@@ -10,6 +10,8 @@
 #include "linkedlist_handler.h"
 #include "thread_handler.h"
 
+#define UNUSED(x) (void)(x)
+
 timer_t td_ret_timer;
 struct itimerspec td_ret_timer_value;
 
@@ -41,6 +43,7 @@ void td_state_set(int state) {
 }
 
 void td_state_timeout(union sigval sv) {
+	UNUSED(sv);
 	td_state_set(0);
 }
 

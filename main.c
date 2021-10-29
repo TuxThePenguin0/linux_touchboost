@@ -11,7 +11,7 @@ struct ll_thread_obj* head = NULL;
 
 void input_add(const char* filepath) {
 	struct ll_thread_obj* newthread = malloc(sizeof(struct ll_thread_obj));
-	newthread->filepath = malloc(strlen(filepath));
+	newthread->filepath = malloc(strlen(filepath) + 1);
 	strcpy(newthread->filepath, filepath);
 	td_thread_create(newthread);
 	head = ll_add(head, newthread);

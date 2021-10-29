@@ -1,4 +1,4 @@
-CFLAGS=-Wall -Werror
+CFLAGS=-Wall -Werror -O2
 
 INCLUDES=-Iinclude
 LIBS=-lrt -lpthread -ludev
