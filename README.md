@@ -22,15 +22,15 @@ A good way to test if this will improve performance is to set your CPU and GPU s
 **Note:** Currently only OpenRC is supported, a pull request for systemd support would be greatly appreciated
 ```
 $ make -j4
-$ sudo make install
+$ sudo make install-openrc
 $ sudo rc-update add touchboost default
 $ sudo rc-service touchboost start
 ```
 
 ## Known issues
-Code review and pull requests to fix bugs and missing features would be appreciated
-- Lack of proper shutdown handling (Does not properly reset frequency)
-- Not thoroughly tested
+- Compiling with the clang undefined behaviour sanitizer will lock up when quitting
 
 ## Warnings
+This program is not yet thoroughly tested, use it at your own risk.
+
 By its nature this program will likely make your device run slightly hotter and use more power, this goes without saying and should already be the case but make sure you have thermal limits in place and plenty of spare battery life.

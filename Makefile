@@ -8,7 +8,7 @@ ifeq ($(PREFIX),)
 	PREFIX := /usr/local
 endif
 
-.PHONY: install uninstall clean
+.PHONY: install install-openrc uninstall clean
 
 build/touchboost: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS) $(LIBS)
@@ -18,9 +18,11 @@ build/%.o: %.c
 
 install: build/touchboost
 	install -d $(DESTDIR)$(PREFIX)/bin
-	install -d $(DESTDIR)/etc/init.d
 	install -m 755 build/touchboost $(DESTDIR)$(PREFIX)/bin/touchboost
 	install -m 755 scripts/touchboost_detect $(DESTDIR)$(PREFIX)/bin/touchboost_detect
+
+install-openrc: install
+	install -d $(DESTDIR)/etc/init.d
 	sed 's-PREFIX-$(PREFIX)-g' scripts/touchboost_openrc > $(DESTDIR)/etc/init.d/touchboost
 	chmod 755 $(DESTDIR)/etc/init.d/touchboost
 

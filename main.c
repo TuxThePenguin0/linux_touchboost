@@ -4,24 +4,24 @@
 #include <string.h>
 #include <signal.h>
 
+#include "main.h"
 #include "udev_handler.h"
 #include "linkedlist_handler.h"
 #include "thread_handler.h"
 
 struct ll_thread_obj* head = NULL;
 
+/* Add an input source to the list */
 void input_add(const char* filepath) {
-	struct ll_thread_obj* newthread = malloc(sizeof(struct ll_thread_obj));
-	newthread->filepath = malloc(strlen(filepath) + 1);
-	strcpy(newthread->filepath, filepath);
-	td_thread_create(newthread);
-	head = ll_add(head, newthread);
+	UNUSED(ll_add(&head, td_thread_create(filepath)));
 }
 
+/* Remove an input source from the list */
 void input_del(const char* filepath) {
-	head = ll_find_and_remove(head, filepath);
+	td_thread_delete(ll_find_and_remove(&head, filepath));
 }
 
+/* Handle udev events to add or remove input devices from the list */
 void input_mod(const char* action, const char* filepath) {
 	if (strcmp(action, "add") == 0) {
 		input_add(filepath);
@@ -30,12 +30,14 @@ void input_mod(const char* action, const char* filepath) {
 	}
 }
 
+/* Gracefully stop the program when a configured signal is received */
 void sig_handler(int signum) {
-	/* This could definitely use some nicer code */
+	UNUSED(signum);
+
+	/* Could still use some nicer code */
 	while (head != NULL) {
 		input_del(head->filepath);
 	}
-
 	td_state_set(0);
 
 	exit(0);
