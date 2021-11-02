@@ -3,6 +3,7 @@
 
 #include "linkedlist_handler.h"
 
+void td_state_set(int state);
 void td_thread_create(struct ll_thread_obj* thread_obj);
 void td_thread_delete(struct ll_thread_obj* thread_obj);
 void td_init();

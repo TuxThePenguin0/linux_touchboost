@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
 
 #include "udev_handler.h"
 #include "linkedlist_handler.h"
@@ -29,11 +30,27 @@ void input_mod(const char* action, const char* filepath) {
 	}
 }
 
+void sig_handler(int signum) {
+	/* This could definitely use some nicer code */
+	while (head != NULL) {
+		input_del(head->filepath);
+	}
+
+	td_state_set(0);
+
+	exit(0);
+}
+
 int main(int argc, const char** argv) {
 	if (argc % 3 != 1 || argc == 1) {
 		fprintf(stderr, "A multiple of 3 arguments is required\n");
 		return 1;
 	}
+
+	signal(SIGHUP, sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTERM, sig_handler);
 
 	ud_find_devices(&input_add);
 	td_init();
