@@ -19,12 +19,22 @@ If all of the following apply to you then you **might** benefit from this:
 A good way to test if this will improve performance is to set your CPU and GPU scaling governors to "performance" briefly and see if the system is more responsive, if not then this will not help.
 
 ## Installation from source
-**Note:** Currently only OpenRC is supported, a pull request for systemd support would be greatly appreciated
+### Requirements:
+- C compiler
+- libudev headers
+
+### OpenRC:
 ```
-$ make -j4
+$ make -j
 $ sudo make install-openrc
 $ sudo rc-update add touchboost default
 $ sudo rc-service touchboost start
+```
+### systemd:
+```
+$ make -j
+$ sudo make install-systemd
+$ sudo systemctl enable --now touchboost.service
 ```
 
 ## Known issues
