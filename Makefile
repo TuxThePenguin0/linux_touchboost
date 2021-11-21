@@ -29,6 +29,7 @@ install-openrc: install
 install-systemd: install
 	install -d $(DESTDIR)/usr/lib/systemd/system
 	sed 's-PREFIX-$(PREFIX)-g' scripts/touchboost_systemd > $(DESTDIR)/usr/lib/systemd/system/touchboost.service
+	chmod 644 $(DESTDIR)/usr/lib/systemd/system/touchboost.service
 
 uninstall:
 	rm $(DESTDIR)$(PREFIX)/bin/touchboost

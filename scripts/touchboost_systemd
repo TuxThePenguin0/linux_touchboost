@@ -1,6 +1,7 @@
 [Unit]
 Description=Clone of the Android touchboost feature for Linux devices
 Requires=systemd-udevd.service
+After=systemd-udevd.service
 
 [Service]
 ExecStart=PREFIX/bin/touchboost -- `PREFIX/bin/touchboost_detect`
