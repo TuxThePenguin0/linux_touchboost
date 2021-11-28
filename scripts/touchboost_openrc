@@ -2,27 +2,11 @@
 
 # Prefix: PREFIX
 
-DAEMON="PREFIX/bin/touchboost"
-PIDFILE="/run/touchboost.pid"
+command="PREFIX/bin/touchboost"
+command_args="`PREFIX/bin/touchboost_detect`"
+pidfile="/var/run/touchboost.pid"
+name="Touchboost"
 
-start() {
-	ebegin "Starting touchboost"
-
-	start-stop-daemon --start \
-		--pidfile ${PIDFILE} \
-		--exec ${DAEMON} \
-		--background \
-                --make-pidfile \
-		-- \
-		`PREFIX/bin/touchboost_detect`
-
-	eend ${?}
-}
-
-stop() {
-	ebegin "Stopping touchboost"
-
-	start-stop-daemon --stop --quiet -p "${PIDFILE}"
-
-	eend ${?}
+depend() {
+	need udev
 }

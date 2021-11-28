@@ -24,7 +24,9 @@ install: build/touchboost
 install-openrc: install
 	install -d $(DESTDIR)/etc/init.d
 	sed 's-PREFIX-$(PREFIX)-g' scripts/touchboost_openrc > $(DESTDIR)/etc/init.d/touchboost
+	cp scripts/touchboost_openrc_conf $(DESTDIR)/etc/conf.d/touchboost
 	chmod 755 $(DESTDIR)/etc/init.d/touchboost
+	chmod 644 $(DESTDIR)/etc/conf.d/touchboost
 
 install-systemd: install
 	install -d $(DESTDIR)/usr/lib/systemd/system
