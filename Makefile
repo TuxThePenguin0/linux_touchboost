@@ -38,6 +38,7 @@ uninstall:
 	rm $(DESTDIR)$(PREFIX)/bin/touchboost
 	rm $(DESTDIR)$(PREFIX)/bin/touchboost_detect
 	rm -f $(DESTDIR)/etc/init.d/touchboost
+	rm -f $(DESTDIR)/etc/conf.d/touchboost
 	rm -f $(DESTDIR)/usr/lib/systemd/system/touchboost.service
 
 clean:

@@ -4,7 +4,7 @@ Requires=systemd-udevd.service
 After=systemd-udevd.service
 
 [Service]
-ExecStart=PREFIX/bin/touchboost -- `PREFIX/bin/touchboost_detect`
+ExecStart=/bin/sh -c 'PREFIX/bin/touchboost `PREFIX/bin/touchboost_detect`'
 Restart=always
 
 [Install]
