@@ -1,12 +1,9 @@
-CFLAGS=-Wall -Werror -O2
+INCLUDES = -Iinclude
+LIBS = -lrt -lpthread -ludev
+OBJS = build/linkedlist_handler.o build/main.o build/thread_handler.o build/udev_handler.o
 
-INCLUDES=-Iinclude
-LIBS=-lrt -lpthread -ludev
-OBJS := build/linkedlist_handler.o build/main.o build/thread_handler.o build/udev_handler.o
-
-ifeq ($(PREFIX),)
-	PREFIX := /usr/local
-endif
+PREFIX ?= /usr/local
+CFLAGS ?= -Wall -Werror -O2
 
 .PHONY: install install-openrc install-systemd uninstall clean
 
