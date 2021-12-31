@@ -6,7 +6,7 @@ for i in /sys/devices/system/cpu/cpufreq/policy*; do
 	fi
 done
 
-for i in /sys/devices/platform/*/devfreq/*; do
+for i in /sys/class/devfreq/*; do
 	if [ -d "${i}" ]; then
 		echo "${i}/min_freq" `cat "${i}/min_freq"` `cat "${i}/max_freq"`
 	fi
