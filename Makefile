@@ -1,9 +1,13 @@
+VERSION = 0.0
+
 INCLUDES = -Iinclude
 LIBS = -lrt -lpthread -ludev
 OBJS = build/linkedlist_handler.o build/main.o build/thread_handler.o build/udev_handler.o
 
 PREFIX ?= /usr/local
 CFLAGS ?= -Wall -Werror -O2
+
+CFLAGS += -DTOUCHBOOST_VERSION='"$(VERSION)"'
 
 .PHONY: install install-openrc install-systemd uninstall clean
 
