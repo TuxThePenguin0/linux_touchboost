@@ -13,5 +13,6 @@ struct ll_thread_obj {
 
 struct ll_thread_obj* ll_add(struct ll_thread_obj** head, struct ll_thread_obj* newitem);
 struct ll_thread_obj* ll_find_and_remove(struct ll_thread_obj** head, const char* filepath);
+struct ll_thread_obj* ll_remove(struct ll_thread_obj** obj);
 
 #endif

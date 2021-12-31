@@ -48,12 +48,13 @@ void input_mod(const char* action, const char* filepath) {
 void sig_handler(int signum) {
 	UNUSED(signum);
 
-	/* Could still use some nicer code */
+	/* Stop each thread and remove from list */
 	while (head != NULL) {
-		input_del(head->filepath);
+		td_thread_delete(ll_remove(&head));
 	}
-	td_state_set(0);
 
+	/* Reset state and exit program */
+	td_state_set(0);
 	exit(0);
 }
 

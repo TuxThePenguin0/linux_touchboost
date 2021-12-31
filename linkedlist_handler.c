@@ -37,21 +37,25 @@ struct ll_thread_obj* ll_find_and_remove(struct ll_thread_obj** head, const char
 
 	/* If the head is the item we want to remove then move the head to the next value and return the old head */
 	if (strcmp((*head)->filepath, filepath) == 0) {
-		struct ll_thread_obj* tmp = *head;
-		*head = (*head)->next;
-		return tmp;
+		return ll_remove(head);
 	}
 
 	/* Find the first matching item, cut it out of the list and return it */
 	struct ll_thread_obj* curr = *head;
 	while (curr->next != NULL) {
 		if (strcmp(curr->next->filepath, filepath) == 0) {
-			struct ll_thread_obj* tmp = curr->next;
-			curr->next = curr->next->next;
-			return tmp;
+			return ll_remove(&curr->next);
 		}
 		curr = curr->next;
 	}
 
 	return NULL;
+}
+
+/* ll_remove - Remove the given item from a list */
+struct ll_thread_obj* ll_remove(struct ll_thread_obj** obj) {
+	/* Save pointer to object, then set the in-list pointer to the next element */
+	struct ll_thread_obj* tmp = *obj;
+	*obj = (*obj)->next;
+	return tmp;
 }
