@@ -27,7 +27,15 @@ const char* helpmsg =
 
 /* Add an input source to the list */
 void input_add(const char* filepath) {
-	UNUSED(ll_add(&head, td_thread_create(filepath)));
+	const char* filename;
+	if ((filename = strrchr(filepath, '/') + 1) == NULL) {
+		filename = filepath;
+	}
+
+	/* Only add event* inputs to avoid duplicate data handling */
+	if (strncmp(filename, "event", 5) == 0) {
+		UNUSED(ll_add(&head, td_thread_create(filepath)));
+	}
 }
 
 /* Remove an input source from the list */
